@@ -8,10 +8,12 @@ def validate_number(value):
     except (ValueError, TypeError):
         return False
 
+
 def validate_operation(op):
     """Validate that operation is supported."""
     valid_ops = ['+', '-', '*', '/']
     return op in valid_ops
+
 
 def validate_range(value, min_val=-1000, max_val=1000):
     """Validate that number is within acceptable range."""
@@ -21,6 +23,7 @@ def validate_range(value, min_val=-1000, max_val=1000):
     except (ValueError, TypeError):
         return False
 
+
 def validate_positive(n):
     """Validate that a number is positive."""
     try:
@@ -29,6 +32,7 @@ def validate_positive(n):
     except (ValueError, TypeError):
         return False
 
+
 def validate_non_negative(n):
     """Validate that a number is non-negative."""
     try:
@@ -36,6 +40,7 @@ def validate_non_negative(n):
         return num >= 0
     except (ValueError, TypeError):
         return False
+
 
 def validate_integer(n):
     """Validate that a number is an integer."""
