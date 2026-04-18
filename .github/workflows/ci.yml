@@ -1,0 +1,48 @@
+name: Git_Project_2_CI
+
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  # Job 1: Test Runner
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: [3.9, 3.10, 3.11, 3.12, 3.13]
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - run: pip install -r requirements.txt
+      - run: pytest
+
+  # Job 2: Linter
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+
+      - run: pip install -r requirements.txt
+      - run: flake8 . # I added flake8 into requirements.txt
+
+  # Job 3: Coverage Tool
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.13
+              
+      - run: pip install -r requirements.txt # Coverage in requirements.txt
+      - run: |
+          coverage run -m pytest
+          coverage report
